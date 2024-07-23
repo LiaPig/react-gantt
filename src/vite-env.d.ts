@@ -1,18 +1,18 @@
 /// <reference types="vite/client" />
 
-declare interface GanttDateTooltip {
+export declare interface GanttDateTooltip {
   date: string
   dateTime: string
   content?: JSX.Element
 }
 
-declare interface GanttDataItem<T> {
-  id: string | number;  // 唯一标识
-  title: string | JSX.Element;  // 名称
-  activities: GanttActivity<T>[]  // 牵涉到的各项活动
+export declare interface GanttDataItem<T> {
+  id: string | number // 唯一标识
+  title: string | JSX.Element // 名称
+  activities: GanttActivity<T>[] // 牵涉到的各项活动
 }
 
-declare interface GanttActivity<T> {
+export declare interface GanttActivity<T> {
   id: string
   title: string
   name: string
@@ -31,9 +31,12 @@ declare interface GanttActivity<T> {
   }
 }
 
-declare type RenderItemBackground = (date: string, ganttItemId: string | number) => string
+export declare type RenderItemBackground = (
+  date: string,
+  ganttItemId: string | number
+) => string
 
-declare interface DateBackgroundColorItem {
+export declare interface DateBackgroundColorItem {
   date: string
   bg: string
 }

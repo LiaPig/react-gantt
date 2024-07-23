@@ -2,21 +2,40 @@ import { Fragment } from 'react'
 import { Popover } from 'antd'
 import { DateProps } from '@/components/MonthList'
 import { activityPadding, activityWidth } from '@/components/Gantt'
-import { GanttDataItem, GanttActivity, RenderItemBackground } from '@/vite-env'
+import type {
+  GanttDataItem,
+  GanttActivity,
+  RenderItemBackground,
+} from '@/vite-env'
 
-export declare interface GanttDataProps extends GanttDataItem<any> {
-  height: string
+export declare interface GanttDataProps extends GanttDataItem<unknown> {
+  height: string | number
 }
 
 declare interface Props {
   data: GanttDataProps[]
   dateList: DateProps[]
-  onClick?: (activity: GanttActivity<any>, index: number, ganttItem: GanttDataProps, ganttIndex: number) => any
+  onClick?: (
+    activity: GanttActivity<unknown>,
+    index: number,
+    ganttItem: GanttDataProps,
+    ganttIndex: number
+  ) => unknown
   renderItemBackground?: RenderItemBackground
 }
 
-function ActivityList({ data, dateList = [], onClick, renderItemBackground }: Props) {
-  const handleClick = async (activity: GanttActivity<any>, index: number, ganttItem: GanttDataProps, ganttIndex: number) => {
+function ActivityList({
+  data,
+  dateList = [],
+  onClick,
+  renderItemBackground,
+}: Props) {
+  const handleClick = async (
+    activity: GanttActivity<unknown>,
+    index: number,
+    ganttItem: GanttDataProps,
+    ganttIndex: number
+  ) => {
     if (!onClick) {
       return
     }
@@ -31,22 +50,28 @@ function ActivityList({ data, dateList = [], onClick, renderItemBackground }: Pr
           className="relative flex whitespace-nowrap hover:bg-[#fafafa]"
           style={{
             height: ganttItem.height,
-            width: `${dateList?.length * activityWidth}px`
+            width: `${dateList?.length * activityWidth}px`,
           }}
         >
           <>
             {/* 背景板 */}
-            {dateList.map(item => (
+            {dateList.map((item) => (
               <div
                 key={`${ganttItem.id}-${item.yearMonthDate}`}
                 className="inline-block h-full text-[#333] border-r border-b border-[#EEEEEE]"
                 style={{
                   width: `${activityWidth}px`,
                   ...item.style,
-                  ...(!item.style?.background && renderItemBackground) ? { background: renderItemBackground(item.yearMonthDate, ganttItem.id) } : {},
+                  ...(!item.style?.background && renderItemBackground
+                    ? {
+                        background: renderItemBackground(
+                          item.yearMonthDate,
+                          ganttItem.id
+                        ),
+                      }
+                    : {}),
                 }}
-              >
-              </div>
+              ></div>
             ))}
             {/* 活动项 */}
             {ganttItem.activities.map((activity, activityIndex) => (
@@ -55,8 +80,19 @@ function ActivityList({ data, dateList = [], onClick, renderItemBackground }: Pr
                   <Popover content={activity?.tooltip} placement="bottom">
                     <div
                       className="absolute text-center text-[#fff] text-[12px] text-ellipsis overflow-hidden border-solid border-[1px] border-[#fff] hover:opacity-80"
-                      style={{ minWidth: `${activityWidth - activityPadding * 2}px`, ...activity.style }}
-                      onClick={async () => await handleClick(activity, activityIndex, ganttItem, ganttIndex)}
+                      style={{
+                        minWidth: `${activityWidth - activityPadding * 2}px`,
+                        ...activity.style,
+                        border: activity.name ? '1px solid #fff' : '0',
+                      }}
+                      onClick={async () =>
+                        await handleClick(
+                          activity,
+                          activityIndex,
+                          ganttItem,
+                          ganttIndex
+                        )
+                      }
                     >
                       {activity.name}
                     </div>
@@ -65,8 +101,19 @@ function ActivityList({ data, dateList = [], onClick, renderItemBackground }: Pr
                 {!activity?.tooltip && (
                   <div
                     className="absolute text-center text-[#fff] text-[12px] text-ellipsis overflow-hidden border-solid border-[1px] border-[#fff] hover:opacity-80"
-                    style={{ minWidth: `${activityWidth - activityPadding * 2}px`, ...activity.style }}
-                    onClick={async () => await handleClick(activity, activityIndex, ganttItem, ganttIndex)}
+                    style={{
+                      minWidth: `${activityWidth - activityPadding * 2}px`,
+                      ...activity.style,
+                      border: activity.name ? '1px solid #fff' : '0',
+                    }}
+                    onClick={async () =>
+                      await handleClick(
+                        activity,
+                        activityIndex,
+                        ganttItem,
+                        ganttIndex
+                      )
+                    }
                   >
                     {activity.name}
                   </div>

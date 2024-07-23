@@ -11,7 +11,7 @@ function App() {
     <div className="p-[20px]">
       <ConfigProvider locale={zhCN}>
         <Gantt
-          header={(<h3>张三李四的甘特图</h3>)}
+          header={<h3>张三李四的甘特图</h3>}
           ganttData={[
             {
               id: 1,
@@ -23,7 +23,7 @@ function App() {
                   startDate: '2023-08-01',
                   endDate: '2023-08-11',
                   statusColor: '#1677FF',
-                  tooltip: (<div className="text-[#1677FF]">开始忙活项目1</div>)
+                  tooltip: <div className="text-[#1677FF]">开始忙活项目1</div>,
                 },
                 {
                   id: '1-2',
@@ -51,7 +51,7 @@ function App() {
                   name: '项目2',
                   startDate: '2023-08-11',
                   endDate: '2023-08-18',
-                  tooltip: '开始忙活项目2'
+                  tooltip: '开始忙活项目2',
                 },
                 {
                   id: '1-6',
@@ -60,7 +60,7 @@ function App() {
                   endDate: '2023-08-14',
                   statusColor: '#827315',
                 },
-              ]
+              ],
             },
             {
               id: 2,
@@ -80,32 +80,41 @@ function App() {
                   endDate: '2023-08-18',
                   statusColor: 'rgb(133, 63, 175)',
                 },
-              ]
-            }
+              ],
+            },
           ]}
           dateTooltipList={[
             {
               date: '2023-08-01',
-              content: (<div className="text-[#1677FF]">张三今天很忙呀</div>)
+              content: <div className="text-[#1677FF]">张三今天很忙呀</div>,
             },
             {
               date: '2023-08-01',
-              content: '李四今天就不忙'
+              content: '李四今天就不忙',
             },
             {
               date: '2023-08-10',
-              content: '李四开始忙起来了'
+              content: '李四开始忙起来了',
             },
             {
               date: '2023-08-14',
-              content: '周三又打豆豆了'
+              content: '周三又打豆豆了',
             },
           ]}
-          renderItemBackground={(date: string, ganttItemId: string | number) => {
-            if (ganttItemId === 1 && dayjs(date)?.isBetween('2023-08-01', '2023-08-11', null, '[]')) {
+          renderItemBackground={(
+            date: string,
+            ganttItemId: string | number
+          ) => {
+            if (
+              ganttItemId === 1 &&
+              dayjs(date)?.isBetween('2023-08-01', '2023-08-11', null, '[]')
+            ) {
               return 'rgb(215, 255, 255)'
             }
-            if (ganttItemId === 2&& dayjs(date)?.isBetween('2023-08-14', '2023-08-18', null, '[]')) {
+            if (
+              ganttItemId === 2 &&
+              dayjs(date)?.isBetween('2023-08-14', '2023-08-18', null, '[]')
+            ) {
               return 'rgb(230, 230, 250)'
             }
             return '' // 默认有颜色 #BDD4F9

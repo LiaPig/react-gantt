@@ -35,7 +35,10 @@ export const getDatesOfMonth = (month: string) => {
   const firstDayOfMonth = dayjs(month).startOf('month')
   const lastDayOfMonth = dayjs(month).endOf('month')
   let currentDate = firstDayOfMonth
-  while (currentDate.isBefore(lastDayOfMonth) || currentDate.isSame(lastDayOfMonth)) {
+  while (
+    currentDate.isBefore(lastDayOfMonth) ||
+    currentDate.isSame(lastDayOfMonth)
+  ) {
     dates.push(currentDate.valueOf())
     currentDate = currentDate.add(1, 'day')
   }
@@ -67,16 +70,26 @@ export const groupDatesByWeek = (dates: number[]) => {
  * @param {Array} scheduleList - 一个日程数组，数组中每个元素包含起止日期等信息
  * @returns {number} 返回指定日期的日程数量
  */
-export const getActivityCountInDay = (date: string, scheduleList: GanttActivity<any>[]) => {
+export const getActivityCountInDay = (
+  date: string,
+  scheduleList: GanttActivity<any>[]
+) => {
   if (!date || !scheduleList?.length) {
     return 0
   }
   const count = scheduleList.reduce((count: number, current) => {
-    if (!current.startDate || current.startDate === '--' || !current.endDate || current.endDate === '--') {
+    if (
+      !current.startDate ||
+      current.startDate === '--' ||
+      !current.endDate ||
+      current.endDate === '--'
+    ) {
       return count
     }
     // 如果指定日期在当前日程的起止日期之间，计数器加 1
-    return dayjs(date).isBetween(current.startDate, current.endDate, null, '[]') ? ++count : count
+    return dayjs(date).isBetween(current.startDate, current.endDate, null, '[]')
+      ? ++count
+      : count
   }, 0)
   return count
 }
@@ -93,7 +106,7 @@ export const isOverlap = (
   range1Start: string,
   range1End: string,
   range2Start: string,
-  range2End: string,
+  range2End: string
 ): boolean => {
   // 检查第一个时间范围是否与第二个时间范围重叠
   return (
@@ -102,5 +115,5 @@ export const isOverlap = (
     // 检查第二个时间范围是否与第一个时间范围重叠
     dayjs(range2Start)?.isBetween(range1Start, range1End, null, '[]') ||
     dayjs(range2End)?.isBetween(range1Start, range1End, null, '[]')
-  );
+  )
 }

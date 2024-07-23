@@ -1,6 +1,6 @@
 # React + TypeScript + Vite + Gantt
-![demo](./src/assets/demo.png)
 
+![demo](./src/assets/demo.png)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
